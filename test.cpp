@@ -1,6 +1,7 @@
 #include <iostream>
 #include <dirent.h>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -27,19 +28,19 @@ public:
 			}
 			closedir (dir);
 			this->size = i;
+			this->fill_array();
 		}
-		this->fill_array();
 	}
 
 	void	fill_array()
 	{
-
 		DIR *dir;
 		struct dirent *ent;
 		int	i;
 
 		i = 0;
-		if ((dir = opendir(this->name.c_str())) != NULL)
+		dir = opendir(this->name.c_str());
+		if (this->size != 0)
 		{
 			this->array = static_cast<Folder*> (::operator new (sizeof(Folder[this->size])));
 			while ((ent = readdir(dir)) != NULL)
@@ -50,8 +51,10 @@ public:
 					i += 1;
 				}
 			}
-			closedir (dir);
 		}
+		else
+			this->array = NULL;
+		closedir (dir);
 	}
 
 	void	print_array()
@@ -69,26 +72,106 @@ public:
 
 };
 
+void	update(Folder *inc, Folder *src)
+{
+	int i;
+
+
+	i = 0;
+	if (inc->array != NULL)
+	{
+		while (i < inc->size)
+		{
+			cout << (inc->array + i)->name.c_str() << endl;
+
+			ifstream myfile ((inc->array + i)->name.c_str());
+			string line;
+
+			if (myfile.is_open())
+			{
+				int typedef_count;
+				int struct_count;
+
+				typedef_count = 0;
+				struct_count = 0;
+
+				while ( getline (myfile, line))
+				{
+					int fd;
+
+					if (typedef_count == 1)
+					{
+						fd = line.find("t_", 0);
+						if (fd != -1)
+						{
+							cout << line.substr(fd, string::npos) << endl;
+							typedef_count = 0;
+						}
+					}
+
+					if (struct_count == 1)
+					{
+						fd = line.find("}", 0);
+						if (fd != -1)
+						{
+							// cout << line.substr(fd, string::npos) << endl;
+							cout << "end_struct" << endl;
+							struct_count = 0;
+						}
+					}
+
+
+
+
+					fd = line.find("typedef", 0);
+					if (fd != -1)
+					{
+						typedef_count = 1;
+						cout << line.substr(fd, string::npos) << endl;
+					}
+
+					fd = line.find("struct", 0);
+					if (fd != -1)
+					{
+						struct_count = 1;
+						cout << line.substr(fd, string::npos) << endl;
+					}
+
+
+					// cout << fd << endl;
+				}
+				myfile.close();
+				i += 1;
+			}
+		}
+	}
+	if (src->array != NULL)
+		cout << "2";
+}
+
 int		main(void)
 {
-	Folder *ptr;
 	int i;
-	char inc;
-	char src;
+	Folder *ptr;
+	Folder *inc;
+	Folder *src;
 
-	inc = 0;
-	src = 0;
+	inc = NULL;
+	src = NULL;
 	ptr = new Folder(".");
 
 	i = 0;
 	while (i < ptr->size)
 	{
-		if ((ptr->array + i)->name == "./inc" && (ptr->array + i)->array != NULL)
-			inc = 1;
+		if ((ptr->array + i)->name == "./inc")
+			inc = (ptr->array + i);
 		if ((ptr->array + i)->name == "./src")
-			src = 1;
+			src = (ptr->array + i);
 		i += 1;
 	}
-	cout << "inc: " << int(inc) << ", src:" << int(src) << endl;
+	if (inc != NULL && src != NULL)
+		update(inc, src);
+	else
+		cout << "Not in project folder" << endl;
 }
 
