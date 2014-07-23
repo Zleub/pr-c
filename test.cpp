@@ -1,148 +1,26 @@
 #include <iostream>
-#include <dirent.h>
 #include <string>
 #include <fstream>
 
+#include "folder.hpp"
+#include "header_class.hpp"
+
 using namespace std;
-
-class Folder
-{
-public:
-	string name;
-	Folder *array;
-	int size;
-
-	Folder(string name): name(name)
-	{
-		DIR *dir;
-		struct dirent *ent;
-		int	i;
-
-		i = 0;
-		if ((dir = opendir(this->name.c_str())) != NULL)
-		{
-			while ((ent = readdir(dir)) != NULL)
-			{
-				if (ent->d_name[0] != '.')
-					i += 1;
-			}
-			closedir (dir);
-			this->size = i;
-			this->fill_array();
-		}
-	}
-
-	void	fill_array()
-	{
-		DIR *dir;
-		struct dirent *ent;
-		int	i;
-
-		i = 0;
-		dir = opendir(this->name.c_str());
-		if (this->size != 0)
-		{
-			this->array = static_cast<Folder*> (::operator new (sizeof(Folder[this->size])));
-			while ((ent = readdir(dir)) != NULL)
-			{
-				if (ent->d_name[0] != '.')
-				{
-					new (this->array + i) Folder(this->name + "/" + ent->d_name);
-					i += 1;
-				}
-			}
-		}
-		else
-			this->array = NULL;
-		closedir (dir);
-	}
-
-	void	print_array()
-	{
-		int i;
-
-		i = 0;
-		cout << this->name << endl;
-		while (i < this->size)
-		{
-			(this->array + i)->print_array();
-			i += 1;
-		}
-	}
-
-};
 
 void	update(Folder *inc, Folder *src)
 {
-	int i;
-
+	int				i;
+	Header_class	*array;
 
 	i = 0;
 	if (inc->array != NULL)
 	{
+		array = static_cast<Header_class*> (::operator new (sizeof(Header_class[inc->size])));
 		while (i < inc->size)
 		{
-			cout << (inc->array + i)->name.c_str() << endl;
-
-			ifstream myfile ((inc->array + i)->name.c_str());
-			string line;
-
-			if (myfile.is_open())
-			{
-				int typedef_count;
-				int struct_count;
-
-				typedef_count = 0;
-				struct_count = 0;
-
-				while ( getline (myfile, line))
-				{
-					int fd;
-
-					if (typedef_count == 1)
-					{
-						fd = line.find("t_", 0);
-						if (fd != -1)
-						{
-							cout << line.substr(fd, string::npos) << endl;
-							typedef_count = 0;
-						}
-					}
-
-					if (struct_count == 1)
-					{
-						fd = line.find("}", 0);
-						if (fd != -1)
-						{
-							// cout << line.substr(fd, string::npos) << endl;
-							cout << "end_struct" << endl;
-							struct_count = 0;
-						}
-					}
-
-
-
-
-					fd = line.find("typedef", 0);
-					if (fd != -1)
-					{
-						typedef_count = 1;
-						cout << line.substr(fd, string::npos) << endl;
-					}
-
-					fd = line.find("struct", 0);
-					if (fd != -1)
-					{
-						struct_count = 1;
-						cout << line.substr(fd, string::npos) << endl;
-					}
-
-
-					// cout << fd << endl;
-				}
-				myfile.close();
-				i += 1;
-			}
+			// read_file((inc->array + i)->name.c_str());
+			new (array + i) Header_class((inc->array + i)->name.c_str());
+			i += 1;
 		}
 	}
 	if (src->array != NULL)
