@@ -50,6 +50,6 @@ int		main(void)
 	if (inc != NULL && src != NULL)
 		update(inc, src);
 	else
-		cout << "Not in project folder" << endl;
+		cout << "Not in project folder, you need inc and src as folder" << endl;
 }
 
