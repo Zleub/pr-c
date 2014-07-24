@@ -25,6 +25,13 @@ void	update(Folder *inc, Folder *src)
 	}
 	if (src->array != NULL)
 		cout << "2";
+
+	i = 0;
+	while (i < inc->size)
+	{
+		(array + i)->print_structs();
+		i += 1;
+	}
 }
 
 int		main(void)
@@ -48,7 +55,9 @@ int		main(void)
 		i += 1;
 	}
 	if (inc != NULL && src != NULL)
+	{
 		update(inc, src);
+	}
 	else
 		cout << "Not in project folder, you need inc and src as folder" << endl;
 }

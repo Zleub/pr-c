@@ -6,11 +6,16 @@ using namespace std;
 class Struct_class
 {
 public:
-	ifstream *myfile;
+	string name;
+
+	void		print_struct()
+	{
+		cout << "Hay, this is print_struct: " << this->name << endl;
+	}
 
 	Struct_class(const char *name)
 	{
-		cout << "Struct_class: " << name << " created" << endl;
-		myfile = new ifstream(name);
+		this->name = name;
+		cout << "Struct_class: \"" << this->name << "\" created" << endl;
 	}
 };
