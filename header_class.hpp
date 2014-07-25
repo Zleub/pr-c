@@ -5,71 +5,17 @@
 
 using namespace std;
 
-class Header_class
+class				Header_class
 {
 public:
-	ifstream *myfile;
-	int typedef_count;
-	int struct_count;
+	ifstream		*myfile;
+	int				struct_nbr;
 
-	int struct_nbr;
-
-	Struct_class *struct_array;
-
-	void	is_option(string line)
-	{
-		int		pos;
-
-		if (this->typedef_count == 1)
-		{
-			pos = line.find("t_", 0);
-			if (pos != -1)
-			{
-				cout << line.substr(pos, string::npos) << endl;
-				this->typedef_count = 0;
-			}
-		}
-
-		if (this->struct_count == 1)
-		{
-			pos = line.find("}", 0);
-			if (pos != -1)
-			{
-			// cout << line.substr(pos, string::npos) << endl;
-				cout << "end_struct" << endl;
-				this->struct_count = 0;
-			}
-		}
-	}
-
-	void	make_option(string line)
-	{
-		int		pos;
-
-		pos = line.find("typedef", 0);
-		if (pos != -1)
-		{
-			this->typedef_count = 1;
-			cout << line.substr(pos, string::npos) << endl;
-		}
-
-		pos = line.find("struct", 0);
-		if (pos != -1)
-		{
-			this->struct_count = 1;
-			cout << " RTEST " << line.substr(pos, string::npos) << endl;
-			// this->struct_class = new Struct_class(line.c_str());
-		}
-
-	}
+	Struct_class	*struct_array;
 
 	void	create_struct_class(int nbr, string line)
 	{
-		int pos;
-
-		pos = line.find("s_");
-		// cout << "\"" << line.substr(pos) << "\"" << endl;
-		new (this->struct_array + nbr) Struct_class(line.substr(pos).c_str());
+		new (this->struct_array + nbr) Struct_class(line, this->myfile);
 	}
 
 	void	read_file()
@@ -79,18 +25,11 @@ public:
 
 		if (this->myfile->is_open())
 		{
-			// this->typedef_count = 0;
-			// this->struct_count = 0;
 			nbr = 0;
 			this->struct_array = static_cast<Struct_class*> (::operator new (sizeof(Struct_class[this->struct_nbr])));
 
 			while ( getline(*this->myfile, line))
 			{
-
-				// this->is_option(line);
-
-				// this->make_option(line);
-			// cout << line << endl;
 				if ((signed)line.find("struct") != -1)
 				{
 					create_struct_class(nbr, line);

@@ -61,4 +61,3 @@ int		main(void)
 	else
 		cout << "Not in project folder, you need inc and src as folder" << endl;
 }
-
