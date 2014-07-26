@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #define MAX_SIZE 80
 
@@ -14,6 +15,8 @@ public:
 
 	int typedef_bool;
 	int array_size;
+
+	string function_type;
 
 	void		print_struct()
 	{
@@ -69,8 +72,62 @@ public:
 		cout << "array_size: " << cmp - 2 << endl;
 	}
 
-	void		write()
+	void		define()
 	{
+		if (this->typedef_bool == 1)
+			this->function_type = "t_" + this->typedef_name;
+		else
+			this->function_type = "struct s_" + this->name;
+	}
+
+	void		write_manage(ofstream *myfile)
+	{
+		string function_params;
+		function_params = "int macro, " + function_type + " *object";
+
+		string function_name;
+		function_name = "manage_" + this->name + "(" + function_params + ")";
+
+		*myfile << function_type << "\t\t*" << function_name << endl;
+
+		*myfile << "{" << endl;
+
+		string function_static;
+		function_static = "\tstatic " + function_type + "\t*elem;";
+
+		*myfile << function_static << endl << endl;
+
+		string function_get;
+		function_get = "\tif (macro == GET)\n\t\treturn (elem);";
+		string function_set;
+		function_set = "\tif (macro == SET)\n\t\telem = object;";
+		string function_new;
+		function_new = "\tif (macro == NEW)\n\t\telem = create_" + this->name + "();";
+		string function_del;
+		function_del = "\tif (macro == DEL)\n\t\tfree_" + this->name + "(elem);";
+
+		*myfile << function_get << endl;
+		*myfile << function_set << endl;
+		*myfile << function_new << endl;
+		*myfile << function_del << endl;
+
+		*myfile << "}" << endl;
+	}
+
+	void		write_header(ofstream *myfile)
+	{
+		*myfile << "/*\n** header\n*/\n" << endl;
+	}
+
+	void		write_create(ofstream *myfile)
+	{
+		string function_name;
+		function_name = function_type + "\t\t*create_" + this->name + "()";
+
+		*myfile << function_name << endl;
+
+		*myfile << "{" << endl;
+		*myfile << "}" << endl;
 
 	}
 
@@ -78,8 +135,18 @@ public:
 	{
 		this->name = line.substr(line.find("s_") + 2);
 
+		string str;
+
+		str = "./src/" + this->name + ".c";
+		ofstream struct_file(str.c_str());
+
 		store(line, myfile);
-		write();
+
+		define();
+
+		write_header(&struct_file);
+		write_create(&struct_file);
+		write_manage(&struct_file);
 
 		cout << "Struct_class: \"" << this->name << "\" created" << endl;
 	}
