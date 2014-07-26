@@ -9,10 +9,10 @@ t_hugo		*create_hugo(void)
 	if (!(elem = (t_hugo*)malloc(sizeof(t_hugo))))
 		return(NULL);
 	elem->name = NULL;
-	elem->height = 0;
-	elem->weight = 0;
+	elem->height = -1;
+	elem->weight = -1;
 	elem->pointofview = NULL;
-	elem->state = NULL;
+	elem->state = -1;
 	return (elem);
 }
 

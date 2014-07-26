@@ -51,17 +51,18 @@ public:
 		if (this->pointer)
 			var_return = "NULL";
 		else
-			var_return = "0";
+			var_return = "-1";
 
 
 		*myfile << "\telem->" << name << " = " << var_return << ";" << endl;
+		cout << "var: " << name << " written" << endl;
 	}
 
 	var(ofstream *myfile, string declaration)
 	{
 		char *result = strcpy((char*)malloc(declaration.length()+1), declaration.c_str());
 
-		cout << "var: " << declaration << " declared" << endl;
+		cout << "var declared" << endl;
 		if ((signed)declaration.find("*") != -1)
 			this->pointer = 1;
 		else

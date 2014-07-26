@@ -6,7 +6,7 @@
 /*   By: Arno <Arno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/07/23 04:02:20 by adebray           #+#    #+#             */
-/*   Updated: 2014/07/26 13:18:58 by Arno             ###   ########.fr       */
+/*   Updated: 2014/07/26 15:18:33 by Arno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct	s_hugo
 	int			height;
 	int			weight;
 	WINDOW		*pointofview;
-	char		*state;
+	char		state;
 }				t_hugo;
 
 #endif

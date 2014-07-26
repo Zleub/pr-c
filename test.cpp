@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void	update(Folder *inc, Folder *src)
+void	update(Folder *inc)
 {
 	int				i;
 	Header_class	*array;
@@ -23,9 +23,6 @@ void	update(Folder *inc, Folder *src)
 			i += 1;
 		}
 	}
-	if (src->array != NULL)
-		cout << "2";
-
 	// i = 0;
 	// while (i < inc->size)
 	// {
@@ -56,7 +53,7 @@ int		main(void)
 	}
 	if (inc != NULL && src != NULL)
 	{
-		update(inc, src);
+		update(inc);
 	}
 	else
 		cout << "Not in project folder, you need inc and src as folder" << endl;

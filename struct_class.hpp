@@ -73,7 +73,7 @@ public:
 		this->array_size = cmp - 2;
 
 
-		cout << "array_size: " << cmp - 2 << endl;
+		cout << "array_size (var_size): " << cmp - 2 << endl;
 	}
 
 	void		define()
