@@ -108,7 +108,7 @@ public:
 		string function_new;
 		function_new = "\tif (macro == NEW)\n\t\telem = create_" + this->name + "();";
 		string function_del;
-		function_del = "\tif (macro == DEL)\n\t\tfree_" + this->name + "(elem);";
+		function_del = "\tif (macro == DEL)\n\t\telem = free_" + this->name + "(elem);";
 
 		*myfile << function_get << endl;
 		*myfile << function_set << endl;
@@ -149,13 +149,47 @@ public:
 		while (i <= this->array_size)
 		{
 			var *ptr;
-			ptr = new var(myfile, content[i]);
+			ptr = new var(content[i]);
+			ptr->printing(myfile, content[i]);
 			i += 1;
 		}
 
 		*myfile << "\treturn (elem);" << endl;
 		*myfile << "}" << endl << endl;
 
+	}
+
+	void		write_delete(ofstream *myfile)
+	{
+		string function_name;
+		function_name = function_type + "\t\t*free_" + this->name + "(" + this->function_type + " *elem)";
+
+		*myfile << function_name << endl;
+
+		*myfile << "{" << endl;
+
+		int i;
+
+		i = 1;
+		while (i <= this->array_size)
+		{
+			var *ptr;
+			ptr = new var(content[i]);
+			ptr->parsing(content[i]);
+			if (ptr->pointer)
+			{
+				*myfile << "\tfree(elem->" << ptr->name << ");" << endl;
+				// *myfile << "\telem->" << ptr->name << " = NULL;" << endl;
+			}
+			i += 1;
+		}
+
+		*myfile << "\tfree_(elem);" << endl;
+		*myfile << "\telem = NULL;" << endl;
+
+
+		*myfile << "\treturn (NULL);" << endl;
+		*myfile << "}" << endl << endl;
 	}
 
 	Struct_class(string line, ifstream *myfile)
@@ -175,6 +209,7 @@ public:
 
 		write_header(&struct_file);
 		write_create(&struct_file);
+		write_delete(&struct_file);
 		write_manage(&struct_file);
 
 	}

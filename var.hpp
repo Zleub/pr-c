@@ -11,6 +11,8 @@ public:
 
 	int	pointer;
 
+	string var_return;
+
 	char	*trim(string str)
 	{
 		char	*trimed;
@@ -27,14 +29,15 @@ public:
 			return (trimed);
 	}
 
-	void	parsing(ofstream *myfile, char *declaration)
+	void	parsing(string declaration)
 	{
+		char *result = strcpy((char*)malloc(declaration.length()+1), declaration.c_str());
 		char	*str;
 
 		if (this->pointer == 1)
-			str = strtok(declaration, "*");
+			str = strtok(result, "*");
 		else
-			str = strtok(declaration, "\t");
+			str = strtok(result, "\t");
 		while (str != NULL)
 		{
 
@@ -47,28 +50,30 @@ public:
 			// if (str != NULL)
 		}
 
-		string var_return;
 		if (this->pointer)
 			var_return = "NULL";
 		else
 			var_return = "-1";
 
+	}
+
+	void	printing(ofstream *myfile, string declaration)
+	{
+		this->parsing(declaration);
 
 		*myfile << "\telem->" << name << " = " << var_return << ";" << endl;
 		cout << "var: " << name << " written" << endl;
 	}
 
-	var(ofstream *myfile, string declaration)
+	var(string declaration)
 	{
-		char *result = strcpy((char*)malloc(declaration.length()+1), declaration.c_str());
-
 		cout << "var declared" << endl;
 		if ((signed)declaration.find("*") != -1)
 			this->pointer = 1;
 		else
 			this->pointer = 0;
 
-		parsing(myfile, result);
+		// parsing(myfile, declaration);
 
 		// 	str = strtok(result, "*");
 		// 	while (str != NULL)

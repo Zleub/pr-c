@@ -16,6 +16,15 @@ t_hugo		*create_hugo(void)
 	return (elem);
 }
 
+t_hugo		*free_hugo(t_hugo *elem)
+{
+	free(elem->name);
+	free(elem->pointofview);
+	free_(elem);
+	elem = NULL;
+	return (NULL);
+}
+
 t_hugo		*manage_hugo(int macro, t_hugo *object)
 {
 	static t_hugo	*elem;
@@ -27,6 +36,6 @@ t_hugo		*manage_hugo(int macro, t_hugo *object)
 	if (macro == NEW)
 		elem = create_hugo();
 	if (macro == DEL)
-		free_hugo(elem);
+		elem = free_hugo(elem);
 	return (NULL);
 }
