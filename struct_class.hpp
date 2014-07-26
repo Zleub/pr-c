@@ -2,8 +2,9 @@
 #include <string>
 #include <fstream>
 
-#include <stdlib.h>
-#include <cstring>
+// #include <cstring>
+
+#include "var.hpp"
 
 #define MAX_SIZE 80
 
@@ -114,6 +115,7 @@ public:
 		*myfile << function_new << endl;
 		*myfile << function_del << endl;
 
+		*myfile << "\treturn (NULL);" << endl;
 		*myfile << "}" << endl;
 	}
 
@@ -146,35 +148,12 @@ public:
 		i = 1;
 		while (i <= this->array_size)
 		{
-			char *result = strcpy((char*)malloc(content[i].length()+1), content[i].c_str());
-			char *str;
-			// *myfile << "->>" << str[0] << endl;
-			if ((signed)content[i].find("*") != -1)
-			{
-				str = strtok(result, "*");
-				while (str != NULL)
-				{
-					string test = str;
-					*myfile << "TYPE  \"" << test << "\"" << endl;
-					str = strtok (NULL, " ,.-");
-					*myfile << "NAME  \"" << str << "\"" << endl;
-					str = strtok (NULL, " ,.-");
-				}
-			}
-			else
-			{
-				str = strtok(result, "\t");
-				while (str != NULL)
-				{
-					*myfile << "TYPE  \"" << str << "\"" << endl;
-					str = strtok (NULL, " ,.-");
-					*myfile << "NAME  \"" << str << "\"" << endl;
-					str = strtok (NULL, " ,.-");
-				}
-			}
+			var *ptr;
+			ptr = new var(myfile, content[i]);
 			i += 1;
 		}
 
+		*myfile << "\treturn (elem);" << endl;
 		*myfile << "}" << endl << endl;
 
 	}
@@ -182,6 +161,8 @@ public:
 	Struct_class(string line, ifstream *myfile)
 	{
 		this->name = line.substr(line.find("s_") + 2);
+		cout << "Struct_class: \"" << this->name << "\" created" << endl;
+
 
 		string str;
 
@@ -196,6 +177,5 @@ public:
 		write_create(&struct_file);
 		write_manage(&struct_file);
 
-		cout << "Struct_class: \"" << this->name << "\" created" << endl;
 	}
 };

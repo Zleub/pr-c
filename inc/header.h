@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adebray <adebray@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Arno <Arno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/07/23 04:02:20 by adebray           #+#    #+#             */
-/*   Updated: 2014/07/23 09:51:01 by adebray          ###   ########.fr       */
+/*   Updated: 2014/07/26 13:18:58 by Arno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 
 # include <test.h>
 
-typedef struct	s_merde
+typedef struct	s_hugo
 {
-	int			chose;
-	char		*truc;
-}				t_merde;
-
-struct			s_daube
-{
-	int			chose;
-	char		*truc;
-}				;
+	char		*name;
+	int			height;
+	int			weight;
+	WINDOW		*pointofview;
+	char		*state;
+}				t_hugo;
 
 #endif

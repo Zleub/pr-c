@@ -26,7 +26,7 @@ public:
 		if (this->myfile->is_open())
 		{
 			nbr = 0;
-			this->struct_array = static_cast<Struct_class*> (::operator new (sizeof(Struct_class[this->struct_nbr])));
+			this->struct_array = static_cast<Struct_class*> (::operator new (sizeof(Struct_class) * this->struct_nbr));
 
 			while ( getline(*this->myfile, line))
 			{

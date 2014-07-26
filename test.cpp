@@ -15,7 +15,7 @@ void	update(Folder *inc, Folder *src)
 	i = 0;
 	if (inc->array != NULL)
 	{
-		array = static_cast<Header_class*> (::operator new (sizeof(Header_class[inc->size])));
+		array = static_cast<Header_class*> (::operator new (sizeof(Header_class) * inc->size));
 		while (i < inc->size)
 		{
 			// read_file((inc->array + i)->name.c_str());
@@ -26,12 +26,12 @@ void	update(Folder *inc, Folder *src)
 	if (src->array != NULL)
 		cout << "2";
 
-	i = 0;
-	while (i < inc->size)
-	{
-		(array + i)->print_structs();
-		i += 1;
-	}
+	// i = 0;
+	// while (i < inc->size)
+	// {
+	// 	(array + i)->print_structs();
+	// 	i += 1;
+	// }
 }
 
 int		main(void)
