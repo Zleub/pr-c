@@ -2,6 +2,9 @@
 #include <string>
 #include <fstream>
 
+#include <stdlib.h>
+#include <cstring>
+
 #define MAX_SIZE 80
 
 using namespace std;
@@ -122,12 +125,57 @@ public:
 	void		write_create(ofstream *myfile)
 	{
 		string function_name;
-		function_name = function_type + "\t\t*create_" + this->name + "()";
+		function_name = function_type + "\t\t*create_" + this->name + "(void)";
 
 		*myfile << function_name << endl;
 
 		*myfile << "{" << endl;
-		*myfile << "}" << endl;
+
+		string function_var;
+		function_var = "\t" + function_type + "\t*elem;";
+
+		*myfile << function_var << endl << endl;;
+
+		string function_malloc;
+		function_malloc = "\tif (!(elem = (" + this->function_type + "*)malloc(sizeof(" + this->function_type + "))))\n\t\treturn(NULL);";
+
+		*myfile << function_malloc << endl;
+
+		int i;
+
+		i = 1;
+		while (i <= this->array_size)
+		{
+			char *result = strcpy((char*)malloc(content[i].length()+1), content[i].c_str());
+			char *str;
+			// *myfile << "->>" << str[0] << endl;
+			if ((signed)content[i].find("*") != -1)
+			{
+				str = strtok(result, "*");
+				while (str != NULL)
+				{
+					string test = str;
+					*myfile << "TYPE  \"" << test << "\"" << endl;
+					str = strtok (NULL, " ,.-");
+					*myfile << "NAME  \"" << str << "\"" << endl;
+					str = strtok (NULL, " ,.-");
+				}
+			}
+			else
+			{
+				str = strtok(result, "\t");
+				while (str != NULL)
+				{
+					*myfile << "TYPE  \"" << str << "\"" << endl;
+					str = strtok (NULL, " ,.-");
+					*myfile << "NAME  \"" << str << "\"" << endl;
+					str = strtok (NULL, " ,.-");
+				}
+			}
+			i += 1;
+		}
+
+		*myfile << "}" << endl << endl;
 
 	}
 
