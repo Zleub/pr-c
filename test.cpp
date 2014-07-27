@@ -38,26 +38,31 @@ void	update(Folder *inc)
 	// print_headers(inc, array);
 }
 
+void	get_folders(Folder **inc, Folder **src)
+{
+	Folder *tree;
+	int i;
+
+	tree = new Folder(".");
+	i = 0;
+	while (i < tree->size)
+	{
+		if ((tree->array + i)->name == "./inc")
+			*inc = (tree->array + i);
+		if ((tree->array + i)->name == "./src")
+			*src = (tree->array + i);
+		i += 1;
+	}
+}
+
 int		main(void)
 {
-	int i;
-	Folder *tree;
 	Folder *inc;
 	Folder *src;
 
 	inc = NULL;
 	src = NULL;
-	tree = new Folder(".");
-
-	i = 0;
-	while (i < tree->size)
-	{
-		if ((tree->array + i)->name == "./inc")
-			inc = (tree->array + i);
-		if ((tree->array + i)->name == "./src")
-			src = (tree->array + i);
-		i += 1;
-	}
+	get_folders(&inc, &src);
 	if (inc != NULL && src != NULL)
 	{
 		update(inc);

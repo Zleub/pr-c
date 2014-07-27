@@ -21,7 +21,7 @@ public:
 		dir = opendir(this->name.c_str());
 		if (this->size != 0)
 		{
-			this->array = static_cast<Folder*> (::operator new (sizeof(Folder) * this->size));
+			this->array = static_cast<Folder*>(::operator new (sizeof(Folder) * this->size));
 			while ((ent = readdir(dir)) != NULL)
 			{
 				if (ent->d_name[0] != '.')
