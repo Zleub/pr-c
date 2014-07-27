@@ -40,24 +40,20 @@ public:
 			str = strtok(result, "\t");
 		while (str != NULL)
 		{
-
 			str = trim(str);
 			type = str;
 			str = strtok (NULL, "\t");
 			str = trim(str);
 			name = str;
 			str = strtok (NULL, "\t");
-			// if (str != NULL)
 		}
-
 		if (this->pointer)
 			var_return = "NULL";
 		else
 			var_return = "-1";
-
 	}
 
-	void	printing(ofstream *myfile, string declaration)
+	void	print_var_init(ofstream *myfile, string declaration)
 	{
 		this->parsing(declaration);
 
@@ -72,29 +68,5 @@ public:
 			this->pointer = 1;
 		else
 			this->pointer = 0;
-
-		// parsing(myfile, declaration);
-
-		// 	str = strtok(result, "*");
-		// 	while (str != NULL)
-		// 	{
-		// 		string test = str;
-		// 		*myfile << "TYPE  \"" << test << "\"" << endl;
-		// 		str = strtok (NULL, " ,.-");
-		// 		*myfile << "NAME  \"" << str << "\"" << endl;
-		// 		str = strtok (NULL, " ,.-");
-		// 	}
-		// }
-		// else
-		// {
-		// 	str = strtok(result, "\t");
-		// 	while (str != NULL)
-		// 	{
-		// 		*myfile << "TYPE  \"" << str << "\"" << endl;
-		// 		str = strtok (NULL, " ,.-");
-		// 		*myfile << "NAME  \"" << str << "\"" << endl;
-		// 		str = strtok (NULL, " ,.-");
-		// 	}
-		// }
 	}
 };

@@ -7,6 +7,18 @@
 
 using namespace std;
 
+void	print_headers(Folder *inc, Header_class *array)
+{
+	int				i;
+
+	i = 0;
+	while (i < inc->size)
+	{
+		(array + i)->print_structs();
+		i += 1;
+	}
+}
+
 void	update(Folder *inc)
 {
 	int				i;
@@ -23,32 +35,27 @@ void	update(Folder *inc)
 			i += 1;
 		}
 	}
-	// i = 0;
-	// while (i < inc->size)
-	// {
-	// 	(array + i)->print_structs();
-	// 	i += 1;
-	// }
+	// print_headers(inc, array);
 }
 
 int		main(void)
 {
 	int i;
-	Folder *ptr;
+	Folder *tree;
 	Folder *inc;
 	Folder *src;
 
 	inc = NULL;
 	src = NULL;
-	ptr = new Folder(".");
+	tree = new Folder(".");
 
 	i = 0;
-	while (i < ptr->size)
+	while (i < tree->size)
 	{
-		if ((ptr->array + i)->name == "./inc")
-			inc = (ptr->array + i);
-		if ((ptr->array + i)->name == "./src")
-			src = (ptr->array + i);
+		if ((tree->array + i)->name == "./inc")
+			inc = (tree->array + i);
+		if ((tree->array + i)->name == "./src")
+			src = (tree->array + i);
 		i += 1;
 	}
 	if (inc != NULL && src != NULL)

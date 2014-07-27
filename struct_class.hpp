@@ -2,8 +2,6 @@
 #include <string>
 #include <fstream>
 
-// #include <cstring>
-
 #include "var.hpp"
 
 #define MAX_SIZE 80
@@ -150,7 +148,7 @@ public:
 		{
 			var *ptr;
 			ptr = new var(content[i]);
-			ptr->printing(myfile, content[i]);
+			ptr->print_var_init(myfile, content[i]);
 			i += 1;
 		}
 
@@ -177,10 +175,7 @@ public:
 			ptr = new var(content[i]);
 			ptr->parsing(content[i]);
 			if (ptr->pointer)
-			{
 				*myfile << "\tfree(elem->" << ptr->name << ");" << endl;
-				// *myfile << "\telem->" << ptr->name << " = NULL;" << endl;
-			}
 			i += 1;
 		}
 
