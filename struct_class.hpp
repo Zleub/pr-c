@@ -13,10 +13,16 @@ using namespace std;
 class Struct_class
 {
 public:
+
+	// Ajout pointer_add et add_type;
+
 	string content[MAX_SIZE];
 	string name;
 	string typedef_name;
+	string pointer_add; // Mal nomme: next_add est mieux, le reste etant prev_add, etc...
+	string name_add_method; // Nom de la methode add (circular, push_back, push_back_rev, etc...)
 
+	int	add_type; // flag de la méthode add (ENUM)
 	int typedef_bool;
 	int array_size;
 
@@ -43,6 +49,42 @@ public:
 			cout << "content[" << cmp << "] :" << content[cmp] << endl;
 			cmp += 1;
 		}
+	}
+
+	// if "*/" is found, function takes line+1 as argument
+	void		get_add_type(string line, ifstream *myfile)
+	{
+		std::string::iterator	i;
+
+		this->add_type = 0; // si !add_type, signifie que formattage du header attendait une methode ADD
+		if ((signed)line.find("CIRCULAR") != -1)
+		{
+			this->name_add_method = "circular";
+			this->add_type = 1;
+		}
+		else if ((signed)line.find("PUSH_BACK") != -1)
+		{
+			this->name_add_method = "push_back";
+			this->add_type = 2;
+		}
+		else if ((signed)line.find("PUSH_BACK_DOUBLE") != -1)
+		{
+			this->name_add_method = "push_back_double";
+			this->add_type = 3;
+		}
+
+		// Si methode il y a, recuperer les noms de variables dont elle a besoin
+		// la forme est indiquee en exemple dans header.h
+		if ((this->add_type != -1) && (i = (signed)(line+1).find("next=")) == -1)
+		{
+			// EXEMPLE
+			cout << "PUSH_BACK method needs a pointer to next to work properly" << endl;
+			return ;
+		}
+		i = i + 5;
+		while (*i != '\n')
+			this->pointer_add += *i;
+		// MEME CHOSE POUR PREV, ETC...
 	}
 
 	void		store(string line, ifstream *myfile) // get typedef, pointer & variable nbr
@@ -109,6 +151,8 @@ public:
 		function_new = "\tif (macro == NEW)\n\t\telem = create_" + this->name + "();";
 		string function_del;
 		function_del = "\tif (macro == DEL)\n\t\telem = free_" + this->name + "(elem);";
+		string function_add;
+		function_add = "\tif (macro == ADD)\n\t\tadd_" + this->name_add_method + "_" + this->name;
 
 		*myfile << function_get << endl;
 		*myfile << function_set << endl;
@@ -192,6 +236,27 @@ public:
 		*myfile << "}" << endl << endl;
 	}
 
+	void		write_add(ofstream *myfile)
+	{
+		string function_name;
+		function_name = function_type + "\t\t*add_" + this->name + "(" + this->function_type "*begin, " + this->function_type + " *elem)";
+
+		*myfile << function_name << endl;
+
+		*myfile << "{" << endl;
+
+		// PUSH_BACK en exemple
+		if (this->add_type == 2)
+		{
+			*myfile << "\t\tif (!begin)\n\t\t\tbegin = elem;\n\t\telse\n\t\t{\n\t\t\t";
+			*myfile << "rem = begin;\n\t\t\twhile (rem->" + this->pointer_add + "))\n\t\t\t";
+			*myfile << "while (rem->" + this->pointer_add + "))\n\t\t\t";
+			*myfile << "\trem = rem->" + this->pointer_add + ";\n\t\t\t";
+			*myfile << "rem = rem->" + this->pointer_add + ";\n\t\t\t}\n\t\t"
+			*myfile << "return (begin);\n}";
+		}
+	}
+
 	Struct_class(string line, ifstream *myfile)
 	{
 		this->name = line.substr(line.find("s_") + 2);
@@ -211,6 +276,7 @@ public:
 		write_create(&struct_file);
 		write_delete(&struct_file);
 		write_manage(&struct_file);
+		write_add(&struct_file);
 
 	}
 };

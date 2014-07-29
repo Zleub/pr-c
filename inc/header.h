@@ -15,13 +15,19 @@
 
 # include <test.h>
 
-typedef struct	s_hugo
+/*
+ *PUSH_BACK
+ *next=huguette
+ */
+
+typedef struct		s_hugo
 {
-	char		*name;
-	int			height;
-	int			weight;
-	WINDOW		*pointofview;
-	char		state;
-}				t_hugo;
+	char			*name;
+	struct s_hugo	*huguette;
+	int				height;
+	int				weight;
+	WINDOW			*pointofview;
+	char			state;
+}					t_hugo;
 
 #endif
