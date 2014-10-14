@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 
+#include <cstring>
 #include "var.hpp"
 
 #define MAX_SIZE 80
@@ -74,7 +75,7 @@ public:
 		cout << "array_size (var_size): " << cmp - 2 << endl;
 	}
 
-	void		define()
+	void		get_define()
 	{
 		if (this->typedef_bool == 1)
 			this->function_type = "t_" + this->typedef_name;
@@ -200,7 +201,7 @@ public:
 
 		store(line, myfile);
 
-		define();
+		get_define();
 
 		write_header(&struct_file);
 		write_create(&struct_file);
