@@ -12,7 +12,6 @@ t_hugo		*create_hugo(void)
 	elem->height = -1;
 	elem->weight = -1;
 	elem->pointofview = NULL;
-	elem->state = -1;
 	return (elem);
 }
 

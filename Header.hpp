@@ -1,7 +1,5 @@
-#include <iostream>
-#include <string>
-
-#include "struct_class.hpp"
+#include "pr-c.hpp"
+#include "Struct.hpp"
 
 using namespace std;
 
@@ -20,8 +18,8 @@ public:
 
 	void	read_file()
 	{
-		int nbr;
-		string line;
+		int			nbr;
+		string		line;
 
 		if (this->myfile->is_open())
 		{
@@ -42,7 +40,7 @@ public:
 
 	void	count_file()
 	{
-		string line;
+		string		line;
 
 		this->struct_nbr = 0;
 		while (getline(*this->myfile, line))
@@ -53,9 +51,9 @@ public:
 		cout << "struct_nbr: " << struct_nbr << endl;
 	}
 
-	void		print_structs()
+	void	print_structs()
 	{
-		int		i;
+		int			i;
 
 		i = 0;
 		while (i < this->struct_nbr)

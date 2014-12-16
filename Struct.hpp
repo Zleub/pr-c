@@ -1,28 +1,23 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-
-// #include <cstring>
-
-#include "var.hpp"
+#include "pr-c.hpp"
+#include "Var.hpp"
 
 #define MAX_SIZE 80
 
-using namespace std;
+using	namespace std;
 
-class Struct_class
+class	Struct_class
 {
 public:
-	string content[MAX_SIZE];
-	string name;
-	string typedef_name;
+	string	content[MAX_SIZE];
+	string	name;
+	string	typedef_name;
 
-	int typedef_bool;
-	int array_size;
+	int		typedef_bool;
+	int		array_size;
 
-	string function_type;
+	string	function_type;
 
-	void		print_struct()
+	void	print_struct()
 	{
 		cout << "Hay, this is print_struct: " << this->name << endl;
 		cout << "typedef_bool: " << typedef_bool << endl;
@@ -33,7 +28,7 @@ public:
 		cout << endl;
 	}
 
-	void		print_struct_content()
+	void	print_struct_content()
 	{
 		int		cmp;
 
@@ -45,7 +40,7 @@ public:
 		}
 	}
 
-	void		store(string line, ifstream *myfile) // get typedef, pointer & variable nbr
+	void	store(string line, ifstream *myfile) // get typedef, pointer & variable nbr
 	{
 		int		off;
 		int		cmp;
@@ -76,7 +71,7 @@ public:
 		cout << "array_size (var_size): " << cmp - 2 << endl;
 	}
 
-	void		define()
+	void	define()
 	{
 		if (this->typedef_bool == 1)
 			this->function_type = "t_" + this->typedef_name;
@@ -84,7 +79,7 @@ public:
 			this->function_type = "struct s_" + this->name;
 	}
 
-	void		write_manage(ofstream *myfile)
+	void	write_manage(ofstream *myfile)
 	{
 		string function_params;
 		function_params = "int macro, " + function_type + " *object";
@@ -119,12 +114,12 @@ public:
 		*myfile << "}" << endl;
 	}
 
-	void		write_header(ofstream *myfile)
+	void	write_header(ofstream *myfile)
 	{
 		*myfile << "/*\n** header\n*/\n" << endl;
 	}
 
-	void		write_create(ofstream *myfile)
+	void	write_create(ofstream *myfile)
 	{
 		string function_name;
 		function_name = function_type + "\t\t*create_" + this->name + "(void)";
@@ -159,7 +154,7 @@ public:
 
 	}
 
-	void		write_delete(ofstream *myfile)
+	void	write_delete(ofstream *myfile)
 	{
 		string function_name;
 		function_name = function_type + "\t\t*free_" + this->name + "(" + this->function_type + " *elem)";

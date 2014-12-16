@@ -1,11 +1,9 @@
-#include <iostream>
-#include <string>
-#include <fstream>
+#include "pr-c.hpp"
 
-#include "folder.hpp"
-#include "header_class.hpp"
+#include "Folder.hpp"
+#include "Header.hpp"
 
-using namespace std;
+using	namespace std;
 
 void	update(Folder *inc)
 {
@@ -18,25 +16,18 @@ void	update(Folder *inc)
 		array = static_cast<Header_class*> (::operator new (sizeof(Header_class) * inc->size));
 		while (i < inc->size)
 		{
-			// read_file((inc->array + i)->name.c_str());
 			new (array + i) Header_class((inc->array + i)->name.c_str());
 			i += 1;
 		}
 	}
-	// i = 0;
-	// while (i < inc->size)
-	// {
-	// 	(array + i)->print_structs();
-	// 	i += 1;
-	// }
 }
 
 int		main(void)
 {
-	int i;
-	Folder *ptr;
-	Folder *inc;
-	Folder *src;
+	int				i;
+	Folder			*ptr;
+	Folder			*inc;
+	Folder			*src;
 
 	inc = NULL;
 	src = NULL;

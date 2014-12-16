@@ -1,17 +1,16 @@
-#include <stdlib.h>
-#include <cctype>
+#include "pr-c.hpp"
 
-using namespace std;
+using	namespace std;
 
-class var
+class	var
 {
 public:
-	string type;
-	string name;
+	string	type;
+	string	name;
 
-	int	pointer;
+	int		pointer;
 
-	string var_return;
+	string	var_return;
 
 	char	*trim(string str)
 	{

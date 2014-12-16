@@ -20,8 +20,7 @@ typedef struct	s_hugo
 	char		*name;
 	int			height;
 	int			weight;
-	WINDOW		*pointofview;
-	char		state;
+	// WINDOW		*pointofview;
 }				t_hugo;
 
 #endif
