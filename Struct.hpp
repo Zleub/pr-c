@@ -144,7 +144,6 @@ public:
 		while (i <= this->array_size)
 		{
 			var *ptr;
-			printf(content[i]);
 			ptr = new var(content[i]);
 			ptr->printing(myfile, content[i]);
 			i += 1;

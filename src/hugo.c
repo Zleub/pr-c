@@ -7,7 +7,7 @@ t_hugo		*create_hugo(void)
 	t_hugo	*elem;
 
 	if (!(elem = (t_hugo*)malloc(sizeof(t_hugo))))
-		return(NULL);
+		return (NULL);
 	elem->name = NULL;
 	elem->height = -1;
 	elem->weight = -1;
