@@ -134,7 +134,7 @@ public:
 		*myfile << function_var << endl << endl;;
 
 		string function_malloc;
-		function_malloc = "\tif (!(elem = (" + this->function_type + "*)malloc(sizeof(" + this->function_type + "))))\n\t\treturn(NULL);";
+		function_malloc = "\tif (!(elem = (" + this->function_type + "*)malloc(sizeof(" + this->function_type + "))))\n\t\treturn (NULL);";
 
 		*myfile << function_malloc << endl;
 
@@ -144,6 +144,7 @@ public:
 		while (i <= this->array_size)
 		{
 			var *ptr;
+			printf(content[i]);
 			ptr = new var(content[i]);
 			ptr->printing(myfile, content[i]);
 			i += 1;
