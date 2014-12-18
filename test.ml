@@ -1,8 +1,13 @@
 open Sys;;
+open String;;
+open List;;
 open Array;;
+open Str;;
 open Printf;;
 
 let prints x = print_string(x ^ "\n");;
+
+let ft_concat path file = path ^ file;;
 
 let ft_out file message =
 	let oc = open_out file in    (* create or truncate file, return channel *)
@@ -10,57 +15,48 @@ let ft_out file message =
 		close_out oc
 ;;
 
-let ft_in file =
-	let ic = open_in file in
+let ft_in filename =
+	let lines = ref [] in
+		let chan = open_in filename in
 		try
-			let line = input_line ic in  (* read line from in_channel and discard \n *)
-			print_endline line;          (* write the result to stdout *)
-
-		with e ->                      (* some unexpected exception occurs *)
-			close_in_noerr ic;           (* emergency closing *)
-			raise e                      (* exit with error: files are closed but
-                                    channels are not flushed *)
+			while true; do
+				lines := input_line chan :: !lines
+			done; []
+		with e ->
+			close_in chan;
+			List.rev !lines
 ;;
-
-let ft_in file =
-	let ic = open_in file in
-		let ft_input_line i = input_line ic in
-			Array.init(3)(ft_input_line)
-;;
-
-let read_file filename =
-let lines = ref [] in
-let chan = open_in filename in
-try
-  while true; do
-    lines := input_line chan :: !lines
-  done; []
-with End_of_file ->
-  close_in chan;
-  List.rev !lines ;;
 
 let init () =
 	let check file =
-		if file = "src" then
-			let concat file = "./src/" ^ file in
+		if file = "./src/" then
+			let concat file = ft_concat("./src/")(file) in
 			Array.iter(Sys.remove)(Array.map(concat)(Sys.readdir(file))) in
 	Array.iter(check)(Sys.readdir("."))
 ;;
 
-let test () =
-	let folder = "./inc" in
-	let list = Sys.readdir(folder) in
-		Array.iter(prints)(list)
+let ft_read () =
+	let folder = "./inc/" in
+		let inclist = Sys.readdir(folder) in
+			let clist = Array.map(ft_concat(folder))(inclist) in
+				Array.map(ft_in) clist
 ;;
 
-let () =
-	init();
-	test();
+let ft_write () =
+	let f x = List.map(String.trim)(x) in
+		let arra = Array.map(f)(ft_read()) in
+
+	let test = Str.regexp(".*struct.*") in
+		let print_test s = if (string_match(test)(s)(0))
+			then prints(s) in
+			let g x = List.iter(print_test)(x) in
+				Array.iter(g)(arra);
 ;;
 
-open List;;
+init();;
+ft_write();;
 
-List.iter(prints)(read_file "inc/header1.h");;
-(*
-out("src/test.c")("Hello");;
+(* let g x = List.map(String.trim)(x) in
+	Array.map(g)(ft_read())
+;;
  *)
