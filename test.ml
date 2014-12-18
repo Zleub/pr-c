@@ -50,7 +50,7 @@ let ft_write () =
 		let print_test s = if (string_match(test)(s)(0))
 			then prints(s) in
 			let g x = List.iter(print_test)(x) in
-				Array.iter(g)(arra);
+				Array.iter(g)(arra)
 ;;
 
 init();;
