@@ -23,4 +23,9 @@ typedef struct	s_hugo
 	// WINDOW		*pointofview;
 }				t_hugo;
 
+struct s_demerde
+{
+
+};
+
 #endif

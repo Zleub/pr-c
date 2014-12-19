@@ -5,7 +5,14 @@ open Array;;
 open Str;;
 open Printf;;
 
-let prints x = print_string(x ^ "\n");;
+class c_struct (name_init : string) (typedef_init : int) =
+	object
+		val name = name_init
+		method get_name = (name : string)
+	end
+;;
+
+let prints x = print_endline("<" ^ x ^ ">");;
 
 let ft_concat path file = path ^ file;;
 
@@ -42,19 +49,28 @@ let ft_read () =
 				Array.map(ft_in) clist
 ;;
 
+let structList = ref [];;
+
 let ft_write () =
 	let f x = List.map(String.trim)(x) in
-		let arra = Array.map(f)(ft_read()) in
+		let readArray = Array.map(f)(ft_read()) in
 
-	let test = Str.regexp(".*struct.*") in
-		let print_test s = if (string_match(test)(s)(0))
-			then prints(s) in
-			let g x = List.iter(print_test)(x) in
-				Array.iter(g)(arra)
+	let test_struct = Str.regexp(".*struct.*") in
+	let test_name = Str.regexp(".*struct.+\\(s_.+\\)") in
+
+		let print_test s = if (string_match(test_struct)(s)(0))
+			then if (string_match(test_name)(s)(0))
+			then structList := (new c_struct(matched_group(1)(s)) :: !structList) in
+
+				let g x = List.iter(print_test)(x) in
+					Array.iter(g)(readArray);
 ;;
 
 init();;
 ft_write();;
+
+let print_name ot = prints(ot#get_name) in
+	List.iter(print_name)(!structList);;
 
 (* let g x = List.map(String.trim)(x) in
 	Array.map(g)(ft_read())
