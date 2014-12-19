@@ -5,10 +5,15 @@ open Array;;
 open Str;;
 open Printf;;
 
-class c_struct (name_init : string) (typedef_init : int) =
+class c_struct (name_init : string) (linedef_init : int) =
 	object
+		val linedef = linedef_init
 		val name = name_init
-		method get_name = (name : string)
+		method get_name = name
+		method get_linedef = linedef
+		method print =
+			print_endline("name: " ^ name);
+			print_endline("linedef: " ^ string_of_int(linedef));
 	end
 ;;
 
@@ -51,26 +56,34 @@ let ft_read () =
 
 let structList = ref [];;
 
-let ft_write () =
+let getstructList () =
+	let static_int = ref 0 in
+
 	let f x = List.map(String.trim)(x) in
-		let readArray = Array.map(f)(ft_read()) in
+	let readArray = Array.map(f)(ft_read()) in
 
 	let test_struct = Str.regexp(".*struct.*") in
 	let test_name = Str.regexp(".*struct.+\\(s_.+\\)") in
 
-		let print_test s = if (string_match(test_struct)(s)(0))
-			then if (string_match(test_name)(s)(0))
-			then structList := (new c_struct(matched_group(1)(s)) :: !structList) in
+	let print_test s =
+		static_int := !static_int + 1;
+		if (string_match(test_struct)(s)(0)) then
+		if (string_match(test_name)(s)(0)) then
+			structList := (new c_struct(matched_group(1)(s))(!static_int) :: !structList) in
 
-				let g x = List.iter(print_test)(x) in
-					Array.iter(g)(readArray);
+	let g x = List.iter(print_test)(x) in
+		Array.iter(g)(readArray);
+	structList := List.rev !structList
 ;;
 
-init();;
-ft_write();;
+(* let ft_write () = ;; *)
 
-let print_name ot = prints(ot#get_name) in
-	List.iter(print_name)(!structList);;
+init();;
+getstructList();;
+
+let print_name ot = ot#print in
+	List.iter(print_name)(!structList)
+;;
 
 (* let g x = List.map(String.trim)(x) in
 	Array.map(g)(ft_read())
