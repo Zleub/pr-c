@@ -1,0 +1,19 @@
+#ifndef HEADER_H
+# define HEADER_H
+
+# include <test.h>
+
+typedef struct	s_truc1
+{
+	char		*name;
+	int			height;
+	int			weight;
+	// WINDOW		*pointofview;
+}				t_hugo;
+
+struct s_tur2
+{
+
+};
+
+#endif
