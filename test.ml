@@ -98,9 +98,9 @@ let buildstructList () =
 	let end_struct = Str.regexp("}.*;") in
 
 	let get_var structElem file line =
-		let i = line;
+		let i = line in
 		while string_match(end_struct)(List.nth(!readArray.(file))(i)) do
-
+			prints(List.nth(!readArray.(file))(i))
 		done in
 
 
