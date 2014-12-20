@@ -97,11 +97,13 @@ let getstructList () =
 let buildstructList () =
 	let end_struct = Str.regexp("}.*;") in
 
+	let rec r file i = if string_match(end_struct)(List.nth(!readArray.(file))(i))(0) then
+		prints(List.nth(!readArray.(file))(i));
+		r(file)(i + 1) in
+
+
 	let get_var structElem file line =
-		let i = line in
-		while string_match(end_struct)(List.nth(!readArray.(file))(i)) do
-			prints(List.nth(!readArray.(file))(i))
-		done in
+		r(file)(line) in
 
 
 	let foreach structElem = get_var(structElem)(structElem#get_fileindex)(structElem#get_linedef) in
