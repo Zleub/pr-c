@@ -31,43 +31,8 @@ function loaddir(inc, src)
 	end
 end
 
-headers = {}
-
-function headers:convert()
-	for k,v in pairs(self.list) do
-		if v ~= "." and v ~= ".." then
-			self.content[v] = {}
-			local f = io.open(self.folder.."/"..v)
-			for line in f:lines() do
-				table.insert(self.content[v], line)
-			end
-		end
-	end
-end
-
-function headers:print()
-	print("self.list: ")
-	for k,v in pairs(self.list) do
-		print(v)
-	end
-	print("self.content: ")
-	for k,v in pairs(self.content) do
-		print(inspect(v))
-	end
-end
-
-function headers:init(incFolder)
-	self.folder = incFolder
-	self.list = scandir(inc)
-	self.content = {}
-	return self;
-end
-
 inc = "./inc"
 src = "./src"
 
 loaddir(inc, src)
-headers:init(inc)
-headers:convert()
-
-headers:print()
+require 'headers':init(inc):print()
