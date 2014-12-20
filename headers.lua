@@ -16,8 +16,10 @@ function headers:convert()
 	local struct_match = "struct%s+([A-z0-9]+)%s*[|{]?$"
 
 	for k,v in pairs(self.content) do
+		print(k, v)
 		for key, val in pairs(v) do
 			local name = string.match(val, struct_match)
+			print(name, k, key)
 			local header = k
 			local linedef = key
 			if name then
@@ -27,9 +29,22 @@ function headers:convert()
 	end
 end
 
+function matchvar(line)
+	local type, name = string.match(line, "^%s*([%w|%s|_]+)%s+(.+);.*$")
+	if type and name then
+		type = trim(type)
+		name = trim(name)
+		if string.match(type, ";") then
+			print("I have a really nice issue here")
+		elseif string.match(name, ";") then
+			name = string.match(name, "(.+);.*")
+		end
+		return type, name
+	end
+end
+
 function headers:fill_structs()
 	for index, struct in pairs(self.structs.list) do
-		-- print(index,  struct.name)
 		local i =  struct.linedef
 		local j = 1
 		while not string.match(self.content[struct.header][i], "}") do
@@ -38,15 +53,12 @@ function headers:fill_structs()
 					struct.typedef = 1
 				end
 			else
-				-- if string.match(self.content[struct.header][i], ".*(.+)%s+(.+).*") then
-						local var1, var2 = string.match(self.content[struct.header][i], "%s*(.+)%s+(.+);.*$")
-						if var1 and var2 then print("<"..var1.."> <"..var2..">") end
-				-- end
+				local type, name = matchvar(self.content[struct.header][i])
+				if type and name then struct.vars:add(type, name) end
 			end
 			j = j + 1
 			i = i + 1
 		end
-		print("")
 		if struct.typedef == 1 then
 			struct.typedname = string.match(self.content[struct.header][i], "}%s*([A-z0-9]+)%s*;")
 		end

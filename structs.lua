@@ -6,7 +6,7 @@ function structs:add(header, name, linedef)
 		name = name,
 		linedef = linedef,
 		typedef = 0,
-		vars = dofile("vars.lua")
+		vars = dofile("vars.lua"):init(),
 	})
 end
 

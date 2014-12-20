@@ -1,13 +1,14 @@
 local vars = {}
 
-function vars:add(name)
-	table.insert({
+function vars:add(type, name)
+	table.insert(self.list, {
+		type = type,
 		name = name
 	})
 end
 
 function vars:print()
-	print("hello world")
+	print(self)
 end
 
 function vars:init()
