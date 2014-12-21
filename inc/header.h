@@ -6,14 +6,12 @@
 /*   By: adebray <adebray@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/07/23 04:02:20 by adebray           #+#    #+#             */
-/*   Updated: 2014/12/21 04:27:42 by adebray          ###   ########.fr       */
+/*   Updated: 2014/12/21 07:36:17 by adebray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
-
-# include <test.h>
 
 typedef struct	s_hugo
 {

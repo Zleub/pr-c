@@ -10,13 +10,15 @@ function structs:add(header, name, linedef)
 		write_new = function (self, file)
 			for k,v in pairs(self.vars.list) do
 				-- print(inspect(v))
-				if v.pointer == 1 and v.fpointer == 0 then
+				if v.pointer == 1 and v.fpointer == 0 and v.t == 0 then
 					if string.match(v.name, "*") then
 						file:write("\tnew->"..string.match(v.name, "*(.+)").." = NULL;\n")
 					else
 						file:write("\tnew->"..v.name.." = NULL;\n")
 					end
-				elseif v.pointer == 2 and v.fpointer == 0 then
+				elseif v.pointer == 1 and v.t == 1 then
+					file:write("\tbzero((void*)(&new->"..string.match(v.name, "*(.+)%[").."), sizeof("..v.type.."*) * "..string.match(v.name, ".+%[(.+)%]")..");\n")
+				elseif v.t == 1 and v.fpointer == 0 then
 					file:write("\tbzero((void*)(&new->"..string.match(v.name, "(.+)%[").."), sizeof("..v.type..") * "..string.match(v.name, ".+%[(.+)%]")..");\n")
 				elseif v.fpointer == 1 then
 					file:write("\tnew->"..string.match(v.name, "%(*([%w|_]+)%)%s*%(.+%)").." = NULL;\n")

@@ -19,7 +19,7 @@ struct s_t1	*new_s_t1(void)
 	new->y = 0;
 	new->c = 0;
 	new->s = NULL;
-	bzero((void*)(&new->*neibourghs), sizeof(struct s_t1) * 10);
+	bzero((void*)(&new->neibourghs), sizeof(struct s_t1*) * 10);
 	return (new);
 }
 
