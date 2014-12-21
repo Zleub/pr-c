@@ -54,6 +54,7 @@ function headers:fill_structs()
 	for index, struct in pairs(self.structs.list) do
 		local i =  struct.linedef
 		local j = 1
+		-- print(inspect(self.content, {depth=1}))
 		while not string.match(self.content[struct.header][i], "}") do
 			if j == 1 then
 				if string.match(self.content[struct.header][i], "typedef") then

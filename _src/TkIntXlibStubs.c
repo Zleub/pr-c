@@ -1,0 +1,232 @@
+#include <stdlib.h>
+#include <string.h>
+#include <tkIntXlibDecls.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
+
+struct TkIntXlibStubs	*new_TkIntXlibStubs(void)
+{
+	struct TkIntXlibStubs	*new;
+
+	if (!(new = (struct TkIntXlibStubs*)malloc(sizeof(struct TkIntXlibStubs))))
+		return (NULL);
+	new->magic = 0;
+	new->hooks = NULL;
+	new->xSetDashes = NULL;
+	new->xGetModifierMapping = NULL;
+	new->xCreateImage = NULL;
+	new->xGetImage = NULL;
+	new->xGetAtomName = NULL;
+	new->xKeysymToString = NULL;
+	new->xCreateColormap = NULL;
+	new->xCreatePixmapCursor = NULL;
+	new->xCreateGlyphCursor = NULL;
+	new->xGContextFromGC = NULL;
+	new->xListHosts = NULL;
+	new->xKeycodeToKeysym = NULL;
+	new->xStringToKeysym = NULL;
+	new->xRootWindow = NULL;
+	new->xSetErrorHandler = NULL;
+	new->xIconifyWindow = NULL;
+	new->xWithdrawWindow = NULL;
+	new->xGetWMColormapWindows = NULL;
+	new->xAllocColor = NULL;
+	new->xBell = NULL;
+	new->xChangeProperty = NULL;
+	new->xChangeWindowAttributes = NULL;
+	new->xClearWindow = NULL;
+	new->xConfigureWindow = NULL;
+	new->xCopyArea = NULL;
+	new->xCopyPlane = NULL;
+	new->xCreateBitmapFromData = NULL;
+	new->xDefineCursor = NULL;
+	new->xDeleteProperty = NULL;
+	new->xDestroyWindow = NULL;
+	new->xDrawArc = NULL;
+	new->xDrawLines = NULL;
+	new->xDrawRectangle = NULL;
+	new->xFillArc = NULL;
+	new->xFillPolygon = NULL;
+	new->xFillRectangles = NULL;
+	new->xForceScreenSaver = NULL;
+	new->xFreeColormap = NULL;
+	new->xFreeColors = NULL;
+	new->xFreeCursor = NULL;
+	new->xFreeModifiermap = NULL;
+	new->xGetGeometry = NULL;
+	new->xGetInputFocus = NULL;
+	new->xGetWindowProperty = NULL;
+	new->xGetWindowAttributes = NULL;
+	new->xGrabKeyboard = NULL;
+	new->xGrabPointer = NULL;
+	new->xKeysymToKeycode = NULL;
+	new->xLookupColor = NULL;
+	new->xMapWindow = NULL;
+	new->xMoveResizeWindow = NULL;
+	new->xMoveWindow = NULL;
+	new->xNextEvent = NULL;
+	new->xPutBackEvent = NULL;
+	new->xQueryColors = NULL;
+	new->xQueryPointer = NULL;
+	new->xQueryTree = NULL;
+	new->xRaiseWindow = NULL;
+	new->xRefreshKeyboardMapping = NULL;
+	new->xResizeWindow = NULL;
+	new->xSelectInput = NULL;
+	new->xSendEvent = NULL;
+	new->xSetCommand = NULL;
+	new->xSetIconName = NULL;
+	new->xSetInputFocus = NULL;
+	new->xSetSelectionOwner = NULL;
+	new->xSetWindowBackground = NULL;
+	new->xSetWindowBackgroundPixmap = NULL;
+	new->xSetWindowBorder = NULL;
+	new->xSetWindowBorderPixmap = NULL;
+	new->xSetWindowBorderWidth = NULL;
+	new->xSetWindowColormap = NULL;
+	new->xTranslateCoordinates = NULL;
+	new->xUngrabKeyboard = NULL;
+	new->xUngrabPointer = NULL;
+	new->xUnmapWindow = NULL;
+	new->xWindowEvent = NULL;
+	new->xDestroyIC = NULL;
+	new->xFilterEvent = NULL;
+	new->xmbLookupString = NULL;
+	new->tkPutImage = NULL;
+	new->reserved81 = NULL;
+	new->xParseColor = NULL;
+	new->xCreateGC = NULL;
+	new->xFreeGC = NULL;
+	new->xInternAtom = NULL;
+	new->xSetBackground = NULL;
+	new->xSetForeground = NULL;
+	new->xSetClipMask = NULL;
+	new->xSetClipOrigin = NULL;
+	new->xSetTSOrigin = NULL;
+	new->xChangeGC = NULL;
+	new->xSetFont = NULL;
+	new->xSetArcMode = NULL;
+	new->xSetStipple = NULL;
+	new->xSetFillRule = NULL;
+	new->xSetFillStyle = NULL;
+	new->xSetFunction = NULL;
+	new->xSetLineAttributes = NULL;
+	new->_XInitImageFuncPtrs = NULL;
+	new->xCreateIC = NULL;
+	new->xGetVisualInfo = NULL;
+	new->xSetWMClientMachine = NULL;
+	new->xStringListToTextProperty = NULL;
+	new->xDrawLine = NULL;
+	new->xWarpPointer = NULL;
+	new->xFillRectangle = NULL;
+	new->xSetDashes = NULL;
+	new->xGetModifierMapping = NULL;
+	new->xCreateImage = NULL;
+	new->xGetImage = NULL;
+	new->xGetAtomName = NULL;
+	new->xKeysymToString = NULL;
+	new->xCreateColormap = NULL;
+	new->xGContextFromGC = NULL;
+	new->xKeycodeToKeysym = NULL;
+	new->xStringToKeysym = NULL;
+	new->xRootWindow = NULL;
+	new->xSetErrorHandler = NULL;
+	new->xAllocColor = NULL;
+	new->xBell = NULL;
+	new->xChangeProperty = NULL;
+	new->xChangeWindowAttributes = NULL;
+	new->xConfigureWindow = NULL;
+	new->xCopyArea = NULL;
+	new->xCopyPlane = NULL;
+	new->xCreateBitmapFromData = NULL;
+	new->xDefineCursor = NULL;
+	new->xDestroyWindow = NULL;
+	new->xDrawArc = NULL;
+	new->xDrawLines = NULL;
+	new->xDrawRectangle = NULL;
+	new->xFillArc = NULL;
+	new->xFillPolygon = NULL;
+	new->xFillRectangles = NULL;
+	new->xFreeColormap = NULL;
+	new->xFreeColors = NULL;
+	new->xFreeModifiermap = NULL;
+	new->xGetGeometry = NULL;
+	new->xGetWindowProperty = NULL;
+	new->xGrabKeyboard = NULL;
+	new->xGrabPointer = NULL;
+	new->xKeysymToKeycode = NULL;
+	new->xMapWindow = NULL;
+	new->xMoveResizeWindow = NULL;
+	new->xMoveWindow = NULL;
+	new->xQueryPointer = NULL;
+	new->xRaiseWindow = NULL;
+	new->xRefreshKeyboardMapping = NULL;
+	new->xResizeWindow = NULL;
+	new->xSelectInput = NULL;
+	new->xSendEvent = NULL;
+	new->xSetIconName = NULL;
+	new->xSetInputFocus = NULL;
+	new->xSetSelectionOwner = NULL;
+	new->xSetWindowBackground = NULL;
+	new->xSetWindowBackgroundPixmap = NULL;
+	new->xSetWindowBorder = NULL;
+	new->xSetWindowBorderPixmap = NULL;
+	new->xSetWindowBorderWidth = NULL;
+	new->xSetWindowColormap = NULL;
+	new->xUngrabKeyboard = NULL;
+	new->xUngrabPointer = NULL;
+	new->xUnmapWindow = NULL;
+	new->tkPutImage = NULL;
+	new->xParseColor = NULL;
+	new->xCreateGC = NULL;
+	new->xFreeGC = NULL;
+	new->xInternAtom = NULL;
+	new->xSetBackground = NULL;
+	new->xSetForeground = NULL;
+	new->xSetClipMask = NULL;
+	new->xSetClipOrigin = NULL;
+	new->xSetTSOrigin = NULL;
+	new->xChangeGC = NULL;
+	new->xSetFont = NULL;
+	new->xSetArcMode = NULL;
+	new->xSetStipple = NULL;
+	new->xSetFillRule = NULL;
+	new->xSetFillStyle = NULL;
+	new->xSetFunction = NULL;
+	new->xSetLineAttributes = NULL;
+	new->_XInitImageFuncPtrs = NULL;
+	new->xCreateIC = NULL;
+	new->xGetVisualInfo = NULL;
+	new->xSetWMClientMachine = NULL;
+	new->xStringListToTextProperty = NULL;
+	new->xDrawSegments = NULL;
+	new->xForceScreenSaver = NULL;
+	new->xDrawLine = NULL;
+	new->xFillRectangle = NULL;
+	new->xClearWindow = NULL;
+	new->xDrawPoint = NULL;
+	new->xDrawPoints = NULL;
+	new->xWarpPointer = NULL;
+	new->xQueryColor = NULL;
+	new->xQueryColors = NULL;
+	new->xQueryTree = NULL;
+	new->xSync = NULL;
+	return (new);
+}
+
+struct TkIntXlibStubs	*manage_TkIntXlibStubs(int macro)
+{
+	static struct TkIntXlibStubs	*current;
+
+	if (macro == NEW)
+		current = new_TkIntXlibStubs();
+	else if (macro == GET)
+		return (current);
+	else
+		write(1, "manage_TkIntXlibStubs: no decent macro\n", 39);
+	return (NULL);
+}

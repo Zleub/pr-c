@@ -12,6 +12,7 @@ function vars:add(type, name)
 
 	local s = 0
 	if string.match(type, "struct") then s = 1 end
+	if self.struct:is_typedef(type) then s = 1 end
 
 	table.insert(self.list, {
 		type = type,
@@ -27,7 +28,8 @@ function vars:print()
 	print(inspect(self))
 end
 
-function vars:init()
+function vars:init(struct)
+	self.struct = struct
 	self.list = {}
 	return self
 end
