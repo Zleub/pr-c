@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <header.h>
+#include <header2.h>
 
 struct s_t1	*new_s_t1(void)
 {
@@ -11,7 +11,7 @@ struct s_t1	*new_s_t1(void)
 	new->x = 0;
 	new->y = 0;
 	new->c = 0;
-	new->*s = 0;
+	new->s = 0;
 	new->*neibourghs[10] = 0;
 	return (new);
 }
