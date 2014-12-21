@@ -8,7 +8,7 @@ function vars:add(type, name)
 end
 
 function vars:print()
-	print(self)
+	print(inspect(self))
 end
 
 function vars:init()

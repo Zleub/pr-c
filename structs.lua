@@ -7,16 +7,16 @@ function structs:add(header, name, linedef)
 		linedef = linedef,
 		typedef = 0,
 		vars = dofile("vars.lua"):init(),
+		write_new = function (self, file)
+			for k,v in pairs(self.vars.list) do
+				file:write("\tnew->"..v.name.." = 0;\n")
+			end
+		end
 	})
 end
 
 function structs:print()
-	print("structs:print: ")
-	print("self.list: ")
-	for k,v in pairs(self.list) do
-		print(inspect(v))
-	end
-	print("")
+	print(inspect(self))
 end
 
 function structs:init(srcFolder)

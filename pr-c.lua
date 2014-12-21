@@ -13,11 +13,11 @@ function scandir(directory)
 end
 
 function loaddir(inc, src)
-	incFolder = io.open("./inc")
-	srcFolder = io.open("./src")
+	incFolder = io.open(inc)
+	srcFolder = io.open(src)
 
 	if (incFolder == nil or srcFolder == nil) then
-		print('No ./inc or ./src folder'); os.exit()
+		print('No '..inc..' or '..src..' folder'); os.exit()
 		os.exit();
 	end
 	inc_str, inc_msg, inc_err = incFolder:read("*a")
@@ -36,7 +36,14 @@ function trim(s)
 end
 
 inc = "./inc"
-src = "./src"
+src = "./_src"
 
 loaddir(inc, src)
-require 'headers':init(inc):print()
+
+if arg[1] then
+	headers = require 'headers':init(inc, src, arg[1])
+else
+	headers = require 'headers':init(inc, src)
+end
+
+-- headers.structs:print()
