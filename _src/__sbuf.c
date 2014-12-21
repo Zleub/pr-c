@@ -7,7 +7,7 @@ struct __sbuf	*new___sbuf(void)
 
 	if (!(new = (struct __sbuf*)malloc(sizeof(struct __sbuf))))
 		return (NULL);
-	new->*_base = 0;
+	new->_base = NULL;
 	new->_size = 0;
 	return (new);
 }

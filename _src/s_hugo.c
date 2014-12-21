@@ -7,10 +7,10 @@ struct s_hugo	*new_s_hugo(void)
 
 	if (!(new = (struct s_hugo*)malloc(sizeof(struct s_hugo))))
 		return (NULL);
-	new->*name = 0;
+	new->name = NULL;
 	new->height = 0;
 	new->weight = 0;
-	new->*pointofview = 0;
+	new->pointofview = NULL;
 	return (new);
 }
 

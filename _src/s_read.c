@@ -10,8 +10,8 @@ struct s_read	*new_s_read(void)
 	new->size = 0;
 	new->index = 0;
 	new->fd = 0;
-	new->*read = 0;
-	new->*next = 0;
+	new->read = NULL;
+	new->next = NULL;
 	return (new);
 }
 

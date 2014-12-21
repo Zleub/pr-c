@@ -7,8 +7,8 @@ struct s_win_list	*new_s_win_list(void)
 
 	if (!(new = (struct s_win_list*)malloc(sizeof(struct s_win_list))))
 		return (NULL);
-	new->*win = 0;
-	new->*next = 0;
+	new->win = NULL;
+	new->next = NULL;
 	return (new);
 }
 

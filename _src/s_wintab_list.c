@@ -7,8 +7,8 @@ struct s_wintab_list	*new_s_wintab_list(void)
 
 	if (!(new = (struct s_wintab_list*)malloc(sizeof(struct s_wintab_list))))
 		return (NULL);
-	new->*array = 0;
-	new->*next = 0;
+	new->array = NULL;
+	new->next = NULL;
 	return (new);
 }
 

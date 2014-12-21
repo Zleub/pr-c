@@ -7,7 +7,7 @@ struct s_cbuff	*new_s_cbuff(void)
 
 	if (!(new = (struct s_cbuff*)malloc(sizeof(struct s_cbuff))))
 		return (NULL);
-	new->*data = 0;
+	new->data = NULL;
 	new->size = 0;
 	new->offset = 0;
 	return (new);

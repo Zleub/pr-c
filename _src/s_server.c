@@ -7,18 +7,18 @@ struct s_server	*new_s_server(void)
 
 	if (!(new = (struct s_server*)malloc(sizeof(struct s_server))))
 		return (NULL);
-	new->*tcps = 0;
-	new->*user_data = 0;
-	new->*clients = 0;
+	new->tcps = NULL;
+	new->user_data = NULL;
+	new->clients = NULL;
 	new->read_fds = 0;
 	new->write_fds = 0;
 	new->higher_fd = 0;
 	new->eot = 0;
-	new->(*connect_handle)(t_serv *, t_ccom **) = 0;
-	new->(*disconnect_handle)(t_serv *, t_ccom **) = 0;
-	new->(*recv_handle)(t_serv *, t_ccom **, char *) = 0;
-	new->(*timeout_handle)(t_serv *) = 0;
-	new->(*loop_handle)(t_serv *) = 0;
+	new->connect_handle)(t_serv *, t_ccom **) = NULL;
+	new->disconnect_handle)(t_serv *, t_ccom **) = NULL;
+	new->recv_handle)(t_serv *, t_ccom **, char *) = NULL;
+	new->timeout_handle)(t_serv *) = NULL;
+	new->loop_handle)(t_serv *) = NULL;
 	new->tv = 0;
 	return (new);
 }

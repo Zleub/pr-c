@@ -12,7 +12,7 @@ struct s_t1	*new_s_t1(void)
 	new->y = 0;
 	new->c = 0;
 	new->s = 0;
-	new->*neibourghs[10] = 0;
+	new->neibourghs[10] = NULL;
 	return (new);
 }
 
@@ -27,4 +27,5 @@ struct s_t1	*manage_s_t1(int macro)
 	else
 		write(1, "manage_s_t1: no decent macro\n", 29);
 	return (NULL);
+}
 }

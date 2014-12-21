@@ -9,7 +9,7 @@ struct s_tcpsock	*new_s_tcpsock(void)
 		return (NULL);
 	new->sin = 0;
 	new->sock = 0;
-	new->*ip = 0;
+	new->ip = NULL;
 	new->port = 0;
 	new->backlog = 0;
 	new->type = 0;

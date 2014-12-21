@@ -9,7 +9,17 @@ function structs:add(header, name, linedef)
 		vars = dofile("vars.lua"):init(),
 		write_new = function (self, file)
 			for k,v in pairs(self.vars.list) do
-				file:write("\tnew->"..v.name.." = 0;\n")
+				if v.pointer == 1 then
+					if string.match(v.name, "*") then
+						file:write("\tnew->"..string.match(v.name, "*(.+)").." = NULL;\n")
+					else
+						file:write("\tnew->"..v.name.." = NULL;\n")
+					end
+				elseif v.fpointer == 1 then
+					file:write("\tnew->"..string.match(v.name, "%(*(.+)%)%s*%(.+%)").." = NULL;\n")
+				else
+					file:write("\tnew->"..v.name.." = 0;\n")
+				end
 			end
 		end
 	})

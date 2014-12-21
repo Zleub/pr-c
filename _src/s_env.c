@@ -8,12 +8,12 @@ struct s_env	*new_s_env(void)
 	if (!(new = (struct s_env*)malloc(sizeof(struct s_env))))
 		return (NULL);
 	new->this_char = 0;
-	new->*this_str = 0;
+	new->this_str = NULL;
 	new->port = 0;
 	new->x = 0;
 	new->y = 0;
 	new->clientmax = 0;
-	new->*teams = 0;
+	new->teams = NULL;
 	new->ipv4_socket = 0;
 	new->sin = 0;
 	new->active_fd_set = 0;

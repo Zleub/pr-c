@@ -7,8 +7,8 @@ struct s_client_list	*new_s_client_list(void)
 
 	if (!(new = (struct s_client_list*)malloc(sizeof(struct s_client_list))))
 		return (NULL);
-	new->*elem = 0;
-	new->*next = 0;
+	new->elem = NULL;
+	new->next = NULL;
 	return (new);
 }
 

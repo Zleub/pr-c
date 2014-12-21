@@ -7,10 +7,10 @@ struct s_team_list	*new_s_team_list(void)
 
 	if (!(new = (struct s_team_list*)malloc(sizeof(struct s_team_list))))
 		return (NULL);
-	new->*elem = 0;
+	new->elem = NULL;
 	new->slots = 0;
-	new->*players = 0;
-	new->*next = 0;
+	new->players = NULL;
+	new->next = NULL;
 	return (new);
 }
 
