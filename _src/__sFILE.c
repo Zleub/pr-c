@@ -1,5 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
 
 struct __sFILE	*new___sFILE(void)
 {
@@ -12,19 +19,19 @@ struct __sFILE	*new___sFILE(void)
 	new->_w = 0;
 	new->_flags = 0;
 	new->_file = 0;
-	new->_bf = 0;
+	bzero((void*)(&new->_bf), sizeof(struct	__sbuf));
 	new->_lbfsize = 0;
 	new->_cookie = NULL;
-	new->_close)(void *) = NULL;
-	new->_read) (void *, char *, int) = NULL;
-	new->_seek) (void *, fpos_t, int) = NULL;
-	new->_write)(void *, const char *, int) = NULL;
-	new->_ub = 0;
+	new->_close = NULL;
+	new->_read = NULL;
+	new->_seek = NULL;
+	new->_write = NULL;
+	bzero((void*)(&new->_ub), sizeof(struct	__sbuf));
 	new->_extra = NULL;
 	new->_ur = 0;
-	new->_ubuf[3] = 0;
-	new->_nbuf[1] = 0;
-	new->_lb = 0;
+	bzero((void*)(&new->_ubuf), sizeof(unsigned char) * 3);
+	bzero((void*)(&new->_nbuf), sizeof(unsigned char) * 1);
+	bzero((void*)(&new->_lb), sizeof(struct	__sbuf));
 	new->_blksize = 0;
 	new->_offset = 0;
 	return (new);

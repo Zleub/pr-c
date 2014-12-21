@@ -1,5 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <serveur.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
 
 struct s_env	*new_s_env(void)
 {
@@ -15,7 +22,7 @@ struct s_env	*new_s_env(void)
 	new->clientmax = 0;
 	new->teams = NULL;
 	new->ipv4_socket = 0;
-	new->sin = 0;
+	bzero((void*)(&new->sin), sizeof(struct sockaddr_in));
 	new->active_fd_set = 0;
 	return (new);
 }

@@ -1,5 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <curse.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
 
 struct s_win_list	*new_s_win_list(void)
 {

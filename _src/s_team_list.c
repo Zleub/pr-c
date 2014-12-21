@@ -1,5 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <serveur.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
 
 struct s_team_list	*new_s_team_list(void)
 {

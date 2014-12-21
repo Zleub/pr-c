@@ -1,5 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
 
 struct __sbuf	*new___sbuf(void)
 {

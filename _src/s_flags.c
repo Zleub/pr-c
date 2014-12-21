@@ -1,5 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <ft_printf.h>
+
+enum e_macro
+{
+	NEW,
+	GET
+};
 
 struct s_flags	*new_s_flags(void)
 {
