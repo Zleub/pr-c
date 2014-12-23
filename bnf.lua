@@ -67,10 +67,10 @@ function get_toplevel(line, var)
 			and line:sub(i + 1, i + 1) ~= "'"
 				then open = open - 1 end
 		if line:sub(i, i) == var
-			and line:sub(i - 1, i - 1) ~= '"'
-			and line:sub(i + 1, i + 1) ~= '"'
-			and line:sub(i - 1, i - 1) ~= "'"
-			and line:sub(i + 1, i + 1) ~= "'"
+			-- and line:sub(i - 1, i - 1) ~= '"'
+			-- and line:sub(i + 1, i + 1) ~= '"'
+			-- and line:sub(i - 1, i - 1) ~= "'"
+			-- and line:sub(i + 1, i + 1) ~= "'"
 				and open == 0 then table.insert(pil, {i, var}) end
 		-- if line:sub(i, i) == '|'
 		-- 	and line:sub(i - 1, i - 1) ~= '"'
