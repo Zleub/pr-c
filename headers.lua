@@ -54,7 +54,7 @@ function headers:fill_structs()
 	for index, struct in pairs(self.structs.list) do
 		local i =  struct.linedef
 		local j = 1
-		-- print(inspect(self.content, {depth=1}))
+			-- print(self.content[struct.header][i])
 		while not string.match(self.content[struct.header][i], "}") do
 			if j == 1 then
 				if string.match(self.content[struct.header][i], "typedef") then
@@ -136,6 +136,10 @@ function headers:init(incFolder, srcFolder, file)
 	self:read()
 	self:convert()
 	self:fill_structs()
+
+	out = io.open("out.out", "w")
+	out:write(inspect(self))
+
 	self:write_structs()
 	return self;
 end

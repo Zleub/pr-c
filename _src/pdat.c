@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include <curses.h>
+#include <ncurses.h>
 
 enum e_macro
 {

@@ -13,18 +13,24 @@ function structs:add(header, name, linedef)
 				-- print(inspect(v))
 				if v.pointer == 1 and v.fpointer == 0 and v.t == 0 then
 					if string.match(v.name, "*") then
-						file:write("\tnew->"..string.match(v.name, "*(.+)").." = NULL;\n")
+						local name = string.match(v.name, "*(.+)")
+						file:write("\tnew->"..name.." = NULL;\n")
 					else
 						file:write("\tnew->"..v.name.." = NULL;\n")
 					end
 				elseif v.pointer == 1 and v.t == 1 then
-					print(v.name, self.header)
-					file:write("\tbzero((void*)(&new->"..string.match(v.name, "*(.+)%[").."), sizeof("..v.type.."*) * "..string.match(v.name, ".+%[(.+)%]")..");\n")
+					local name = string.match(v.name, "*(.+)%[")
+					print(self.header, v.name, name)
+					local size = string.match(v.name, ".+%[(.+)%]")
+					file:write("\tbzero((void*)(&new->"..name.."), sizeof("..v.type.."*) * "..size..");\n")
 				elseif v.t == 1 and v.fpointer == 0 then
-					file:write("\tbzero((void*)(&new->"..string.match(v.name, "(.+)%[").."), sizeof("..v.type..") * "..string.match(v.name, ".+%[(.+)%]")..");\n")
+					local name = string.match(v.name, "(.+)%[")
+					local size = string.match(v.name, ".+%[(.+)%]")
+					file:write("\tbzero((void*)(&new->"..name.."), sizeof("..v.type..") * "..size..");\n")
 				elseif v.fpointer == 1 then
-					print(v.name, self.header)
-					file:write("\tnew->"..string.match(v.name, "%(*([%w|_]+)%)%s*%(.+%)").." = NULL;\n")
+					local name = string.match(v.name, "%(*([%w|_]+)%)%s*%(.+%)")
+					print(self.header, v.name, name)
+					file:write("\tnew->"..name.." = NULL;\n")
 				elseif v.s == 1 then
 					file:write("\tbzero((void*)(&new->"..v.name.."), sizeof("..v.type.."));\n")
 				else
